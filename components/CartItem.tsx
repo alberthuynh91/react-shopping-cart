@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 
-const CartItem = ({ item, cart, setCart }) => {
+const CartItem = ({ item, cart, setCart }: ItemProps) => {
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
 
-  const handleRemove = (item) => {
+  const handleRemove = (item: Item) => {
     const cartCopy = Object.assign({}, cart);
     const itemToRemove = cartCopy[item.id];
     if (itemToRemove) {

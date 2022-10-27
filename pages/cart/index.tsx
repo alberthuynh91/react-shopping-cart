@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { CartItem } from '../../components';
 
-const CartItems = ({ cart, setCart }) => {
+const CartItems = ({ cart, setCart }: CartItemsProps) => {
   return (
     <>
       {Object.values(cart).map((item) => (
@@ -25,19 +25,22 @@ const Cart = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    if (cart) {
-      setCart(cart);
+    if (typeof window !== undefined) {
+      const cartFromStorage = localStorage.getItem('cart');
+      if (cartFromStorage) {
+        const cart = JSON.parse(cartFromStorage);
+        setCart(cart);
+      }
     }
   }, []);
 
   const isCartEmpty = Object.values(cart).length === 0;
 
-  const cartTotal = Object.values(cart).reduce((accum, curr) => {
+  const cartTotal = Object.values(cart).reduce((accum: any, curr: any) => {
     const itemCost = parseFloat(curr.price);
     const total = curr.quantity * itemCost;
     return total + accum;
-  }, 0);
+  }, 0) as number;
 
   const handleEmptyCart = () => {
     setCart({});

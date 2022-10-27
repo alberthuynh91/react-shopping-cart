@@ -4,11 +4,15 @@ import Head from 'next/head';
 import { Item } from '../components';
 import Link from 'next/link';
 
-const Home: NextPage = ({ items }) => {
-  const initialCart =
-    typeof window !== 'undefined'
-      ? JSON.parse(localStorage.getItem('cart'))
-      : {};
+const Home: NextPage = ({ items }: any) => {
+  const getCartFromStorage = () => {
+    const cartFromStorage = localStorage.getItem('cart');
+    if (cartFromStorage) {
+      return JSON.parse(cartFromStorage);
+    }
+  };
+
+  const initialCart = typeof window !== 'undefined' ? getCartFromStorage() : {};
 
   const [cart, setCart] = useState(initialCart);
 
@@ -24,7 +28,7 @@ const Home: NextPage = ({ items }) => {
       </Head>
       <h1 className="mb-4 text-4xl font-extrabold">Bert's Grocery Store</h1>
       <div className="flex">
-        {items.map((item) => {
+        {items.map((item: Item) => {
           return <Item item={item} cart={cart} setCart={setCart} />;
         })}
       </div>

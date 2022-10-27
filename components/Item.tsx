@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Item = ({ item, cart, setCart }) => {
+const Item = ({ item, cart, setCart }: ItemProps) => {
   const handleAddToCart = () => {
     const tempCart = Object.assign({}, cart);
     if (tempCart[item.id]) {
@@ -24,7 +24,7 @@ const Item = ({ item, cart, setCart }) => {
       <div className="text-lg">${item.price}</div>
       <button
         className="bg-gray-400 hover:bg-gray-600 text-white text-xs font-semibold py-2 px-4 rounded mt-2"
-        onClick={() => handleAddToCart(item)}
+        onClick={handleAddToCart}
       >
         Add to cart
       </button>
